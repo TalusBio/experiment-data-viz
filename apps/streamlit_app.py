@@ -2,7 +2,7 @@
 import plotly.express as px
 import streamlit as st
 
-from experiment_data_viz.components import sample_file_uploader
+from experiment_data_viz.components import file_uploader
 
 
 TITLE = "Experiment Data Viz"
@@ -18,10 +18,17 @@ st.set_page_config(
 def main() -> None:
     st.title(TITLE)
 
-    sample_uploader = sample_file_uploader.SampleFileUploader()
+    plate_uploader = file_uploader.PlateFileUploader()
+    plate_uploader.display()
+    if not plate_uploader.data.empty:
+        plate_uploader.display_choice()
+
+    sample_uploader = file_uploader.SampleFileUploader(
+        plate_data_uploader=plate_uploader
+    )
     sample_uploader.display()
 
-    sample_data = sample_uploader.sample_data
+    sample_data = sample_uploader.data
     if not sample_data.empty:
         sample_uploader.display_choice()
 
