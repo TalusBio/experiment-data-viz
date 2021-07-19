@@ -1,22 +1,12 @@
+# .flake8
 [flake8]
+select = B,B9,BLK,C,D,DAR,E,F,I,N,RST,S,W
+ignore = B950,D205,DAR202,D415,DAR301,E203,E501,E731,RST201,RST203,RST301,RST306,S108,W503
 max-line-length = 88
-ignore = E501, E203, W503
-exclude =
-    .git
-    __pycache__
-    setup.py
-    build
-    dist
-    releases
-    .venv
-    .tox
-    .mypy_cache
-    .pytest_cache
-    .vscode
-    .github
-    poetry/utils/_compat.py
-    poetry/utils/env_scripts/tags.py
-    tests/fixtures/
-    tests/repositories/fixtures/
-    tests/utils/fixtures/
-    .ipynb_checkpoints
+max-complexity = 15
+docstring-convention = numpy
+per-file-ignores = tests/*:S101
+exclude = .nox/*
+rst-roles = class,const,func,meth,mod,ref
+rst-directives = deprecated
+application-import-names = experiment_data_viz,tests
