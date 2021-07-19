@@ -25,10 +25,6 @@ def main() -> None:
     if not sample_data.empty:
         sample_uploader.display_choice()
 
-    # strip all string columns
-    df_obj = sample_data.select_dtypes(["object"])
-    sample_data[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
-
     WIDTH = 1000
     HEIGHT = 900
 

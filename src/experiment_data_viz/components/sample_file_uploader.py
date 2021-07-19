@@ -11,9 +11,9 @@ from experiment_data_viz.bca_analyis import (
     read_sample_file,
 )
 from experiment_data_viz.constants import (
+    BCA_CONCENTRATION_COLUMN,
     DEFAULT_LEVEL1_COL,
     DEFAULT_LEVEL2_COL,
-    DEFAULT_PROTEIN_COL,
 )
 
 
@@ -43,6 +43,9 @@ class SampleFileUploader:
             raise StopException
 
         self._sample_data = read_sample_file(sample_filename=self._uploaded_sample_file)
+        # Strip all String columns
+        df_obj = self._sample_data.select_dtypes(["object"])
+        self._sample_data[df_obj.columns] = df_obj.apply(lambda x: x.str.strip())
         st.sidebar.write(self._uploaded_sample_file.name)
 
         self._uploaded_plate_file = st.sidebar.file_uploader(
@@ -58,6 +61,7 @@ class SampleFileUploader:
                 sample_start="C1",
                 sample_end="C12",
             )
+            self._protein_column = BCA_CONCENTRATION_COLUMN
 
     def display_choice(self):
         """Display the choice for the columns to use."""
@@ -79,7 +83,9 @@ class SampleFileUploader:
 
             try:
                 default_protein_col = int(
-                    np.where(self._sample_data.columns == DEFAULT_PROTEIN_COL)[0][0]
+                    np.where(self._sample_data.columns == BCA_CONCENTRATION_COLUMN)[0][
+                        0
+                    ]
                 )
             except IndexError:
                 default_protein_col = 0
