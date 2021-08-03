@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "experiment_data_viz"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Rico Meinl <rmeinl97@gmail.com>"]
 
