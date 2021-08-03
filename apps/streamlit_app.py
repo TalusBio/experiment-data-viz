@@ -3,6 +3,10 @@ import plotly.express as px
 import streamlit as st
 
 from experiment_data_viz.components import file_uploader
+from experiment_data_viz.utils import (
+    get_table_download_link,
+    streamlit_static_downloads_folder,
+)
 
 
 TITLE = "Experiment Data Viz"
@@ -17,6 +21,8 @@ st.set_page_config(
 
 def main() -> None:
     st.title(TITLE)
+
+    downloads_path = streamlit_static_downloads_folder()
 
     plate_uploader = file_uploader.PlateFileUploader()
     plate_uploader.display()
@@ -48,6 +54,11 @@ def main() -> None:
 
     st.subheader("Input DataFrame")
     st.dataframe(sample_data)
+
+    st.markdown(
+        get_table_download_link(df=sample_data, downloads_path=downloads_path),
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == "__main__":
