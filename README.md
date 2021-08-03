@@ -3,5 +3,5 @@
 ```
 make .venv
 
-poetry run streamlit run streamlit.py
+make run
 ```

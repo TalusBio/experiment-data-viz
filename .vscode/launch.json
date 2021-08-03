@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "debug streamlit",
+      "type": "python",
+      "request": "launch",
+      "program": "/Users/ricomeinl/Library/Caches/pypoetry/virtualenvs/experiment-data-viz-B5rfjZo2-py3.8/bin/streamlit",
+      "args": ["run", "apps/streamlit_app.py"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

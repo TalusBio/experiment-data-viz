@@ -1,0 +1,13 @@
+Entity,Entity Name,Working Compound,Working Cell Line,Fresh / Frozen,Number of Cells (x1000),Compound Dose (nM),Compound Time,Treatment Protocol,Sample Batch ID,Pass,Prepared Date,Prepared Scientist,Notes
+LNCAP_P2_S1,LNCAP_P2_S1,DMSO-1,LNCAP_p24,Fresh,4000,,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S2,LNCAP_P2_S2,DMSO-1,LNCAP_p24,Fresh,4000,,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S3,LNCAP_P2_S3,DMSO-1,LNCAP_p24,Fresh,4000,,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S4,LNCAP_P2_S4,ARN509_1,LNCAP_p24,Fresh,4000,30,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S5,LNCAP_P2_S5,ARN509_1,LNCAP_p24,Fresh,4000,30,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S6,LNCAP_P2_S6,ARN509_1,LNCAP_p24,Fresh,4000,30,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S7,LNCAP_P2_S7,R1881_1,LNCAP_p24,Fresh,4000,1,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S8,LNCAP_P2_S8,R1881_1,LNCAP_p24,Fresh,4000,1,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S9,LNCAP_P2_S9,R1881_1,LNCAP_p24,Fresh,4000,1,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S10,LNCAP_P2_S10,BG15n_1,LNCAP_p24,Fresh,4000,30,48,,070321_Schumacker_1,True,2021-07-03,Noelle,Spilled 3mL of media in the hood while resuspending.
+LNCAP_P2_S11,LNCAP_P2_S11,BG15n_1,LNCAP_p24,Fresh,4000,30,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
+LNCAP_P2_S12,LNCAP_P2_S12,BG15n_1,LNCAP_p24,Fresh,4000,30,48,,070321_Schumacker_1,True,2021-07-03,Noelle,
