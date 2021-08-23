@@ -17,6 +17,7 @@ from experiment_data_viz.constants import (
     DEFAULT_NUM_REPLICATES,
     DEFAULT_SAMPLE_END,
     DEFAULT_SAMPLE_START,
+    STANDARD_BLANK_INDEX,
 )
 
 
@@ -34,9 +35,11 @@ class SampleFileUploader:
     def display(self):
         """Display the custom protein uploader."""
         st.sidebar.header("Upload Sample Data")
-        self._uploaded_file = st.sidebar.file_uploader("Choose a Sample file (.csv)")
+        self._uploaded_file = st.sidebar.file_uploader(
+            "Choose a Sample Information file (.csv)"
+        )
         if not self._uploaded_file:
-            st.subheader("Please upload a Sample file.")
+            st.subheader("Please upload a Sample Information file.")
             st.write(
                 "Use a .csv exported version of a sheet like this one: https://docs.google.com/spreadsheets/d/1tDpV7IwJx3m6Cs1vGITK4UrvIDU7-e1J8CsrWW_JgEA/edit?usp=sharing"
             )
@@ -58,6 +61,7 @@ class SampleFileUploader:
                 number_of_replicates=self._plate_data_uploader.num_replicates,
                 sample_start=self._plate_data_uploader.sample_start,
                 sample_end=self._plate_data_uploader.sample_end,
+                sample_blank_index=self._plate_data_uploader.sample_blank_index,
             )
 
     def display_choice(self):
@@ -143,13 +147,12 @@ class PlateFileUploader:
         self._num_replicates = DEFAULT_NUM_REPLICATES
         self._sample_start = DEFAULT_SAMPLE_START
         self._sample_end = DEFAULT_SAMPLE_END
+        self._sample_blank_index = STANDARD_BLANK_INDEX
 
     def display(self):
         """Display the custom protein uploader."""
-        st.sidebar.header("Upload Plate Data")
-        self._uploaded_plate_file = st.sidebar.file_uploader(
-            "Choose a Plate file (.csv)"
-        )
+        st.sidebar.header("Upload BCA Data")
+        self._uploaded_plate_file = st.sidebar.file_uploader("Choose a BCA file (.csv)")
         if self._uploaded_plate_file:
             self._data = read_plate_file(plate_filename=self._uploaded_plate_file)
 
@@ -164,6 +167,9 @@ class PlateFileUploader:
             )
             self._sample_end = st.sidebar.text_input(
                 "Sample End", value=DEFAULT_SAMPLE_END
+            )
+            self._sample_blank_index = st.sidebar.number_input(
+                "Sample Blank Index", value=STANDARD_BLANK_INDEX
             )
 
     @property
@@ -185,3 +191,8 @@ class PlateFileUploader:
     def sample_end(self):
         """Getter for sample_end."""
         return self._sample_end
+
+    @property
+    def sample_blank_index(self):
+        """Getter for sample_start_index."""
+        return self._sample_blank_index

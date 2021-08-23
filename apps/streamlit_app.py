@@ -52,11 +52,25 @@ def main() -> None:
     st.subheader("Box Plot showing Protein Concentration (ug/ul)")
     st.write(fig)
 
-    st.subheader("Input DataFrame")
-    st.dataframe(sample_data)
+    st.subheader("Edit Output DataFrame")
+    sample_data_edit = sample_data.copy(deep=True)
+
+    postfix = st.text_input("Postfix")
+    column = st.selectbox("Column to apply", options=sample_data.columns)
+    columns_to_keep = st.multiselect(
+        "Select Columns to keep",
+        options=list(sample_data.columns),
+        default=list(sample_data.columns),
+    )
+    if postfix:
+        sample_data_edit[column] = sample_data_edit[column].apply(
+            lambda x: f"{x}_{postfix}"
+        )
+        sample_data_edit = sample_data_edit[columns_to_keep]
+    st.dataframe(sample_data_edit)
 
     st.markdown(
-        get_table_download_link(df=sample_data, downloads_path=downloads_path),
+        get_table_download_link(df=sample_data_edit, downloads_path=downloads_path),
         unsafe_allow_html=True,
     )
 

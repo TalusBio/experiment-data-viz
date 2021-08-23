@@ -10,9 +10,9 @@ from sklearn.linear_model import LinearRegression
 
 from experiment_data_viz.constants import (
     BCA_CONCENTRATION_COLUMN,
-    BLANK_INDEX,
     KNOWN_CONCENTRATIONS,
     ROW_LENGTH,
+    STANDARD_BLANK_INDEX,
 )
 
 
@@ -78,7 +78,12 @@ def add_BCA_to_sample_data(sample_df, plate_df, sample_start, sample_end):
 
 
 def get_concentration_values(
-    plate_data, sample_data, number_of_replicates, sample_start, sample_end
+    plate_data,
+    sample_data,
+    number_of_replicates,
+    sample_start,
+    sample_end,
+    sample_blank_index=STANDARD_BLANK_INDEX,
 ):
     """Calculates concentration values from the plate data and sample data."""
     # Perform linear regression of BCA STD
@@ -86,9 +91,11 @@ def get_concentration_values(
     df_avg = df_std.mean(axis=0)
 
     # Subtract the blanks from our training data set x
-    df_x = subtract_blanks(df_man=df_avg, blank_pos=BLANK_INDEX, df_main=df_avg)
+    df_x = subtract_blanks(
+        df_man=df_avg, blank_pos=STANDARD_BLANK_INDEX, df_main=df_avg
+    )
 
-    x = df_x.iloc[: BLANK_INDEX + 1].values
+    x = df_x.iloc[: STANDARD_BLANK_INDEX + 1].values
     x = x.reshape([-1, 1])
     lin_reg = LinearRegression()
     lin_reg.fit(x, KNOWN_CONCENTRATIONS)
@@ -99,7 +106,7 @@ def get_concentration_values(
     plate_data_rest = plate_data.iloc[2:]
 
     plate_data_rest = subtract_blanks(
-        df_man=plate_data_rest, blank_pos=BLANK_INDEX, df_main=df_avg
+        df_man=plate_data_rest, blank_pos=sample_blank_index, df_main=df_avg
     )
 
     plate_data_rest = calculate_concentration_values(
@@ -136,8 +143,14 @@ def get_concentration_values(
 )
 @click.option("--sample_start", type=str, default="C1", help="")
 @click.option("--sample_end", type=str, default="H12", help="")
+@click.option("--sample_blank_index", type=int, default=STANDARD_BLANK_INDEX, help="")
 def main(
-    plate_filename, sample_filename, number_of_replicates, sample_start, sample_end
+    plate_filename,
+    sample_filename,
+    number_of_replicates,
+    sample_start,
+    sample_end,
+    sample_blank_index,
 ):
     plate_data = read_plate_file(plate_filename=plate_filename)
     sample_data = read_sample_file(sample_filename=sample_filename)
@@ -148,6 +161,7 @@ def main(
         number_of_replicates=number_of_replicates,
         sample_start=sample_start,
         sample_end=sample_end,
+        sample_blank_index=sample_blank_index,
     )
 
     df_sample.to_csv(
